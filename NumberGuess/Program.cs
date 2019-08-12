@@ -11,36 +11,40 @@ namespace NumberGuess
 		static void Main(string[] args)
 
 		{
-			do
+			Random r = new Random();
+
+			int val = r.Next(1, 100);
+			int guess = 0;
+			bool correct = false;
+
+			Console.WriteLine("I'm thinking of a number between 1 and 100.");
+
+			while (!correct)
 			{
-			Random random = new Random();
+				Console.Write("Your Guess: ");
+				string input = Console.ReadLine();
 
-			int returnValue = random.Next(1, 100);
-
-			int Guess = 0;
-
-			Console.WriteLine("I am thinking of a number between 1-100.  Can you guess what it is?");
-
-			while (Guess != returnValue)
-			{
-				Guess = Convert.ToInt32(Console.Read());
-
-				if (Guess < returnValue)
+				if (!int.TryParse(input, out guess))
 				{
-					Console.WriteLine("No, the number I am thinking of is higher than " + Guess + ". Can you guess what it is?");
-				}
-				else if (Guess > returnValue)
-				{
-					Console.WriteLine("No, the number I am thinking of is lower than " + Guess + ". Can you guess what it is?");
+					Console.WriteLine("That's not a number.");
+					continue;
 				}
 
+				if (guess < val)
+				{
+					Console.WriteLine("No, the number I'm thinking of is higher.");
+				}
+				else if (guess > val)
+				{
+					Console.WriteLine("No, the number I'm thinking of is lower.");
+				}
+				else
+				{
+					correct = true;
+					Console.WriteLine("You guessed right!");
+					Console.ReadLine();
+				}
 			}
-			Console.WriteLine("Well done! The answer was " + returnValue);
-
-				Console.WriteLine("Would you like to guess another number?");
-			}
-			while ((Console.ReadLine() == "Y") || (Console.ReadLine() == "y"));
-			Console.ReadLine();
 		}
 	}
 }
